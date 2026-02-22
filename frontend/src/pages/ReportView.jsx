@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getReport, processReport } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import TextToSpeech from '../components/TextToSpeech';
 
 function MedicationsTable({ medications }) {
     const { t } = useTranslation();
@@ -100,12 +101,29 @@ function FindingsTable({ findings }) {
 }
 
 function ExplanationPanel({ sections, citations, explanationText }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     if (!sections && !explanationText) return null;
+
+    // Map i18n language codes to BCP 47 for TTS
+    const langMap = {
+        'en': 'en-US',
+        'hi': 'hi-IN',
+        'te': 'te-IN',
+        'ta': 'ta-IN',
+        'or': 'or-IN',
+        'ml': 'ml-IN',
+        'bn': 'bn-IN',
+        'pa': 'pa-IN',
+        'mr': 'mr-IN'
+    };
+    const ttsLang = langMap[i18n.language] || 'en-US';
 
     return (
         <div className="explanation-container">
-            <h2 className="findings-title" style={{ marginBottom: 'var(--space-4)' }}>📋 {t('report.tabs.explanation')}</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
+                <h2 className="findings-title" style={{ marginBottom: 0 }}>📋 {t('report.tabs.explanation')}</h2>
+                <TextToSpeech text={explanationText || sections?.map(s => `${s.title}: ${s.content}`).join(' ')} language={ttsLang} />
+            </div>
 
             {explanationText && (
                 <div className="card" style={{ marginBottom: 'var(--space-4)', fontFamily: 'var(--font-serif)', lineHeight: 1.8, fontSize: 'var(--fs-sm)', color: 'var(--color-text-secondary)' }}>
