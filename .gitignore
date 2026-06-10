@@ -1,4 +1,16 @@
+# ============================================================
+# ENVIRONMENT & SECRETS — never commit these
+# ============================================================
+.env
+.env.*
+!.env.example        # keep the example template
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# ============================================================
 # Python
+# ============================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -20,57 +32,81 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
 
-# Virtual Environment
+# Virtual Environments
 venv/
 .venv/
 env/
 ENV/
 bin/
-lib/
 local/
 
-# Node.js
+# ============================================================
+# Database & Persistent Storage
+# ============================================================
+*.db
+*.sqlite3
+backend/chroma_db/
+backend/medclare.db
+
+# ============================================================
+# Uploads / User-generated content
+# ============================================================
+backend/uploads/
+
+# ============================================================
+# Node.js / Frontend
+# ============================================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 dist/
 build/
 .next/
+.nuxt/
+.output/
 .serverless/
+
+# ============================================================
+# Vercel
+# ============================================================
 .vercel/
+.vercel
 
-# Environment Variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-backend/.env
-
-# Database
-*.db
-*.sqlite3
-backend/chroma_db/
-
+# ============================================================
 # Logs
+# ============================================================
 *.log
+logs/
 backend/backend.log
 backend/backend_err.log
 
-# Uploads
-backend/uploads/
-
-# OS/IDE
+# ============================================================
+# OS / IDE
+# ============================================================
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 *.swp
 *.swo
+desktop.ini
 
-# Project specific
+# ============================================================
+# Project-specific scratch / test files
+# ============================================================
 tmp/
 body.json
 backend/body.json
