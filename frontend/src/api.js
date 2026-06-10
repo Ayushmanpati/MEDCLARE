@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8000';
+// In production (Vercel), VITE_API_BASE is set to '/_/backend' via env var.
+// In development, it's empty so Vite's proxy handles /auth and /reports.
+const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 const api = axios.create({
     baseURL: API_BASE,
